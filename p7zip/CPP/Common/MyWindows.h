@@ -151,6 +151,7 @@ enum VARENUM
   VT_UINT = 23,
   VT_VOID = 24,
   VT_HRESULT = 25,
+  VT_ARRAY = 26,
   VT_FILETIME = 64
 };
 
@@ -190,12 +191,20 @@ typedef PROPVARIANT tagVARIANT;
 typedef tagVARIANT VARIANT;
 typedef VARIANT VARIANTARG;
 
+#define MY_EXTERN_C extern "C"
+
 MY_EXTERN_C HRESULT VariantClear(VARIANTARG *prop);
 MY_EXTERN_C HRESULT VariantCopy(VARIANTARG *dest, VARIANTARG *src);
+
+#else
+
+#define MY_EXTERN_C extern
+
 
 #endif
 
 MY_EXTERN_C BSTR SysAllocStringByteLen(LPCSTR psz, UINT len);
+MY_EXTERN_C BSTR SysAllocStringLen(const OLECHAR*,UINT);
 MY_EXTERN_C BSTR SysAllocString(const OLECHAR *sz);
 MY_EXTERN_C void SysFreeString(BSTR bstr);
 MY_EXTERN_C UINT SysStringByteLen(BSTR bstr);
